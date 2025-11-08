@@ -1,0 +1,52 @@
+{
+  "name": "languagebridge-chromestore",
+  "version": "1.1.0",
+  "description": "Bilingual screen reader and real-time voice translation for Dari, Pashto, and Arabic-speaking students",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+    "lint": "eslint content/**/*.ts options/**/*.ts background.ts --max-warnings 0",
+    "lint:fix": "eslint content/**/*.ts options/**/*.ts background.ts --fix",
+    "format": "prettier --write 'content/**/*.{ts,html,css}' 'options/**/*.{ts,html,css}'",
+    "format:check": "prettier --check 'content/**/*.{ts,html,css}' 'options/**/*.{ts,html,css}'",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "type-check": "tsc --noEmit",
+    "precommit": "npm run lint && npm run test && npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@babel/preset-typescript": "^7.24.0",
+    "babel-loader": "^9.1.0",
+    "@testing-library/dom": "^9.3.4",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "@types/chrome": "^0.0.234",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "prettier": "^3.0.0",
+    "ts-jest": "^29.1.0",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.0.0",
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.0",
+    "webpack-dev-server": "^4.15.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": {
+    "chrome": ["last 5 versions"]
+  }
+}

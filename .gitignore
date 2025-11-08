@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build output
+dist/
+*.bundle.js
+*.bundle.js.map
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+config/api-config.js
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-workspace
+
+# Testing
+coverage/
+*.lcov
+.nyc_output/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp

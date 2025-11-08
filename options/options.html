@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LanguageBridge Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #7c3aed 0%, #a855f7 30%, #f97316 70%, #fb923c 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #7c3aed 0%, #a855f7 30%, #f97316 70%, #fb923c 100%);
+      color: white;
+      padding: 30px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-icon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .header-content h1 {
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+
+    .header-content p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 20px;
+      color: #7c3aed;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .section-description {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    label .required {
+      color: #ef4444;
+    }
+
+    label .optional {
+      color: #999;
+      font-weight: normal;
+      font-size: 12px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #a855f7;
+    }
+
+    .help-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .checkbox-group:hover {
+      background: #f0f0f0;
+    }
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .checkbox-label {
+      flex: 1;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: #f8f9fa;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .radio-option:hover {
+      border-color: #a855f7;
+      background: #f3e8ff;
+    }
+
+    .radio-option input[type="radio"]:checked ~ .radio-label {
+      font-weight: 600;
+      color: #7c3aed;
+    }
+
+    .radio-option input[type="radio"]:checked {
+      accent-color: #a855f7;
+    }
+
+    input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .radio-label {
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .slider-group {
+      padding: 16px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .slider-label {
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .slider-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #a855f7;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      background: #e0e0e0;
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #a855f7;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: #a855f7;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .alert {
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: start;
+      gap: 12px;
+    }
+
+    .alert-info {
+      background: #f3e8ff;
+      border: 1px solid #a855f7;
+      color: #7c3aed;
+    }
+
+    .alert-warning {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      color: #856404;
+    }
+
+    .alert-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .alert-content {
+      flex: 1;
+    }
+
+    .alert-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .alert-text {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+      color: white;
+      flex: 1;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+    }
+
+    .btn-secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .btn-danger {
+      background: #ef4444;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+
+    .status-message {
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+      font-weight: 500;
+      display: none;
+    }
+
+    .status-message.success {
+      background: #d1fae5;
+      color: #065f46;
+      display: block;
+    }
+
+    .status-message.error {
+      background: #fee2e2;
+      color: #991b1b;
+      display: block;
+    }
+
+    .divider {
+      height: 1px;
+      background: #e0e0e0;
+      margin: 32px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="../assets/icon48.png" alt="LanguageBridge" class="header-icon">
+      <div class="header-content">
+        <h1>Settings</h1>
+        <p>Configure LanguageBridge for your needs</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Demo Password Configuration -->
+      <div class="section">
+        <h2 class="section-title">🔑 Access Code Required</h2>
+        <p class="section-description">Enter your access code to activate LanguageBridge</p>
+
+        <div class="alert alert-info">
+          <div class="alert-icon">ℹ️</div>
+          <div class="alert-content">
+            <div class="alert-title">How to Get Access</div>
+            <div class="alert-text">Access codes are provided for grant demos and school trials. Contact us at <strong>languagebridge.app</strong> for an access code.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>
+            Access Code <span class="required">*</span>
+          </label>
+          <input type="password" id="demoPassword" placeholder="Enter your access code (e.g., DEMO-2025-SPRING)">
+          <div class="help-text">Format: XXXX-XXXX-XXXX</div>
+        </div>
+
+        <div id="sessionInfo" style="display: none; padding: 16px; background: #d1fae5; border-radius: 8px; margin-top: 16px;">
+          <div style="font-weight: 600; color: #065f46; margin-bottom: 4px;">✅ Access Activated</div>
+          <div style="font-size: 13px; color: #047857;">
+            <div id="sessionTier"></div>
+            <div id="sessionExpiry"></div>
+            <div id="sessionUsage"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Default Language Settings -->
+      <div class="section">
+        <h2 class="section-title">🌍 Primary Student Language</h2>
+        <p class="section-description">Select the main language your students speak</p>
+
+        <div class="alert alert-info">
+          <div class="alert-icon">💡</div>
+          <div class="alert-content">
+            <div class="alert-text">Afghan and Central Asian languages are featured above. All students will be able to select their language in the toolbar regardless of this setting.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Primary Language <span class="required">*</span></label>
+          <select id="defaultLanguage">
+            <!-- Featured Languages -->
+            <optgroup label="🇦🇫 Afghan Languages (Featured)">
+              <option value="fa">Dari (دری) - Most common</option>
+              <option value="fa-IR-formal">Persian (فارسی) - Formal variant</option>
+              <option value="ps">Pashto (پښتو)</option>
+            </optgroup>
+            <!-- Other Major Languages -->
+            <optgroup label="🌏 Other Languages">
+              <option value="ar">Arabic (العربية)</option>
+              <option value="ur">Urdu (اردو)</option>
+              <option value="uz">Uzbek (O'zbek)</option>
+              <option value="uk">Ukrainian (Українська)</option>
+              <option value="es">Spanish (Español)</option>
+              <option value="en">English</option>
+            </optgroup>
+          </select>
+          <div class="help-text">This language will be selected by default when students first open the extension</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Reading Preferences -->
+      <div class="section">
+        <h2 class="section-title">Reading Preferences</h2>
+        <p class="section-description">Customize how text is read aloud</p>
+
+        <div class="form-group">
+          <div class="slider-group">
+            <div class="slider-header">
+              <span class="slider-label">Reading Speed</span>
+              <span class="slider-value" id="speedValue">1.0x</span>
+            </div>
+            <input type="range" id="speechRate" min="0.5" max="2.0" step="0.1" value="1.0">
+            <div class="help-text" style="margin-top: 8px;">Adjust how fast text is spoken</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Verbosity Level</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="verbosity" value="minimal">
+              <span class="radio-label">Minimal</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="verbosity" value="balanced" checked>
+              <span class="radio-label">Balanced</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="verbosity" value="full">
+              <span class="radio-label">Full</span>
+            </label>
+          </div>
+          <div class="help-text">Controls how much detail is read (e.g., "Button" vs just the text)</div>
+        </div>
+
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Demo Mode Toggle -->
+      <div class="section">
+        <h2 class="section-title">🧪 Demo Mode vs Production</h2>
+        <p class="section-description">Choose how to manage your API keys</p>
+
+        <div class="form-group">
+          <label class="checkbox-group" id="demoModeToggle">
+            <input type="checkbox" id="demoModeEnabled" checked>
+            <span class="checkbox-label">
+              <strong>🎬 Demo Mode</strong> - Show Azure key inputs (for testing)
+            </span>
+          </label>
+          <div class="help-text" style="margin-left: 30px;">
+            When enabled, you can input test Azure keys below. When disabled (Production), all key input fields are hidden and keys are managed securely.
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Advanced: Azure API Keys (Optional) -->
+      <div class="section" id="azureKeysSection">
+        <h2 class="section-title">🔐 Advanced: Custom Azure Keys (Optional)</h2>
+        <p class="section-description">Only fill this in if you have your own Azure account and want to use custom API keys</p>
+
+        <div class="alert alert-warning">
+          <div class="alert-icon">⚠️</div>
+          <div class="alert-content">
+            <div class="alert-title">For Advanced Users Only</div>
+            <div class="alert-text">
+              Leave these blank to use demo access via your access code above.
+              Only enter Azure keys if you have your own Azure Cognitive Services subscription
+              and want direct control over billing and usage.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>
+            Azure Speech Key <span class="optional">(optional)</span>
+          </label>
+          <input type="password" id="azureSpeechKey" placeholder="Leave blank to use demo access">
+          <div class="help-text">Your Azure Speech Services subscription key</div>
+        </div>
+
+        <div class="form-group">
+          <label>
+            Azure Translator Key <span class="optional">(optional)</span>
+          </label>
+          <input type="password" id="azureTranslatorKey" placeholder="Leave blank to use demo access">
+          <div class="help-text">Your Azure Translator subscription key</div>
+        </div>
+
+        <div class="form-group">
+          <label>
+            Azure Region <span class="optional">(optional)</span>
+          </label>
+          <select id="azureRegion">
+            <option value="westus">West US (westus)</option>
+            <option value="eastus">East US (eastus)</option>
+            <option value="westus2">West US 2 (westus2)</option>
+            <option value="centralus">Central US (centralus)</option>
+            <option value="northeurope">North Europe (northeurope)</option>
+            <option value="westeurope">West Europe (westeurope)</option>
+            <option value="southeastasia">Southeast Asia (southeastasia)</option>
+          </select>
+          <div class="help-text">The region where your Azure resources are hosted</div>
+        </div>
+
+        <div id="keyValidationStatus" style="display: none; padding: 16px; border-radius: 8px; margin-top: 16px;">
+          <div id="keyValidationMessage"></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Keyboard Shortcuts Info -->
+      <div class="section">
+        <h2 class="section-title">⌨️ Keyboard Shortcuts (Work even in locked test mode!)</h2>
+        <p class="section-description">Use these shortcuts to access translation features anywhere</p>
+
+        <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; margin-top: 12px;">
+          <div style="display: grid; gap: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Toggle Translation Toolbar</span>
+              <code style="background: white; padding: 6px 12px; border-radius: 6px; font-weight: bold;">Alt + Shift + L</code>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Toggle Conversation Translator</span>
+              <code style="background: white; padding: 6px 12px; border-radius: 6px; font-weight: bold;">Alt + Shift + T</code>
+            </div>
+          </div>
+          <div class="help-text" style="margin-top: 12px;">
+            💡 These shortcuts work even when websites are in locked/test mode (like Google Forms quizzes)
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Feature Toggles -->
+      <div class="section">
+        <h2 class="section-title">Features</h2>
+        <p class="section-description">Enable or disable extension features</p>
+
+        <div class="form-group">
+          <label class="checkbox-group">
+            <input type="checkbox" id="toolbarEnabled">
+            <span class="checkbox-label">Enable Screen Reader Toolbar (Alt+Shift+L)</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-group">
+            <input type="checkbox" id="floatingTranslatorEnabled">
+            <span class="checkbox-label">Enable Floating Translator (Alt+Shift+T)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <button class="btn btn-primary" id="saveBtn">
+          💾 Save Settings
+        </button>
+        <button class="btn btn-secondary" id="closeBtn">
+          ✕ Close
+        </button>
+        <button class="btn btn-secondary" id="resetBtn">
+          ↺ Reset to Defaults
+        </button>
+        <button class="btn btn-danger" id="clearBtn">
+          🗑️ Clear All Data
+        </button>
+      </div>
+
+      <!-- Status Message -->
+      <div class="status-message" id="statusMessage"></div>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

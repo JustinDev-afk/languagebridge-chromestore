@@ -1,0 +1,101 @@
+{
+    "manifest_version": 3,
+    "name": "LanguageBridge - Real-Time Translation for Students",
+    "version": "1.1.0",
+    "description": "Bilingual screen reader and real-time voice translation for Dari, Pashto, and Arabic-speaking students",
+    
+    "permissions": [
+      "activeTab",
+      "storage",
+      "scripting",
+      "tts",
+      "tabs",
+      "clipboardRead"
+    ],
+    
+    "host_permissions": [
+      "https://*/*",
+      "http://*/*"
+    ],
+    
+    "background": {
+      "service_worker": "background.js"
+    },
+    
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": [
+          "content/azure-speech-sdk-bundle.js",
+          "config/messages.js",
+          "config/features.js",
+          "content/azure-client.js",
+          "content/activation-modal.js",
+          "content/google-docs-adapter.js",
+          "content/onboarding.js",
+          "content/highlighter.js",
+          "content/toolbar.js",
+          "content/floating-translator.js"
+        ],
+        "css": [
+          "content/toolbar.css",
+          "content/floating-translator.css"
+        ],
+        "run_at": "document_idle"
+      }
+    ],
+    
+    "action": {
+      "default_popup": "popup/popup.html",
+      "default_icon": {
+        "16": "assets/icon16.png",
+        "32": "assets/icon32.png",
+        "48": "assets/icon48.png",
+        "128": "assets/icon128.png"
+      }
+    },
+
+    "options_page": "options/options.html",
+
+    "icons": {
+      "16": "assets/icon16.png",
+      "32": "assets/icon32.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png",
+      "512": "assets/icon512.png"
+    },
+    
+    "commands": {
+      "toggle-toolbar": {
+        "suggested_key": {
+          "default": "Alt+Shift+L",
+          "mac": "Alt+Shift+L"
+        },
+        "description": "Toggle LanguageBridge toolbar"
+      },
+      "toggle-floating-translator": {
+        "suggested_key": {
+          "default": "Alt+Shift+T",
+          "mac": "Alt+Shift+T"
+        },
+        "description": "Toggle floating conversation translator"
+      }
+    },
+    
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "assets/*",
+          "content/*.css",
+          "content/*.html",
+          "content/azure-speech-sdk-bundle.js",
+          "docs/*.html"
+        ],
+        "matches": ["<all_urls>"]
+      }
+    ],
+    
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'; connect-src https://languagebridge-api.azurewebsites.net https://westus.api.cognitive.microsoft.com https://eastus.api.cognitive.microsoft.com https://westus2.api.cognitive.microsoft.com https://api.cognitive.microsofttranslator.com https://micro-tran.cognitiveservices.azure.com https://*.speech.microsoft.com https://cdn.jsdelivr.net"
+    }
+  }

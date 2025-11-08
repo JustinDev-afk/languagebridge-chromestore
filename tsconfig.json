@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    // Language and Environment
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "useDefineForClassFields": true,
+
+    // Module Resolution
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    // Emit
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "removeComments": false,
+    "noEmit": true,
+
+    // Strict Type-Checking Options
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+
+    // Additional Checks
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    // Interop Constraints
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["content/**/*.ts", "options/**/*.ts", "background.ts"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}
