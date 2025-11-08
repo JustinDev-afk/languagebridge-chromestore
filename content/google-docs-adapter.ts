@@ -172,9 +172,7 @@ class GoogleDocsAdapter {
       }
 
       // Wait 500ms before next attempt
-      await new Promise((resolve): number =>
-        setTimeout(resolve, 500)
-      );
+      await new Promise((resolve): number => setTimeout(resolve, 500));
       attempts++;
     }
   }
@@ -284,13 +282,9 @@ class GoogleDocsAdapter {
     console.log('🔍 handleSelectionChange called');
 
     const selection = this.getSelectedText();
+    console.log(`🔍 Selected text: "${selection ? selection.substring(0, 50) : 'none'}..."`);
     console.log(
-      `🔍 Selected text: "${selection ? selection.substring(0, 50) : 'none'}..."`
-    );
-    console.log(
-      `🔍 Last selection: "${
-        this.lastSelection ? this.lastSelection.substring(0, 50) : 'none'
-      }..."`
+      `🔍 Last selection: "${this.lastSelection ? this.lastSelection.substring(0, 50) : 'none'}..."`
     );
 
     if (selection && selection !== this.lastSelection && selection.length > 0) {
@@ -333,9 +327,7 @@ class GoogleDocsAdapter {
       // Method 1: Try standard toString
       let text = selection.toString().trim();
       console.log(
-        `🔍 Method 1 (toString): "${text.substring(0, 50)}${
-          text.length > 50 ? '...' : ''
-        }"`
+        `🔍 Method 1 (toString): "${text.substring(0, 50)}${text.length > 50 ? '...' : ''}"`
       );
 
       // Method 2: Try extracting text content from range
@@ -344,9 +336,7 @@ class GoogleDocsAdapter {
         const contents = range.cloneContents();
         text = contents.textContent?.trim() || '';
         console.log(
-          `🔍 Method 2 result: "${text.substring(0, 50)}${
-            text.length > 50 ? '...' : ''
-          }"`
+          `🔍 Method 2 result: "${text.substring(0, 50)}${text.length > 50 ? '...' : ''}"`
         );
       }
 
@@ -355,9 +345,7 @@ class GoogleDocsAdapter {
         console.log('🔍 Method 3: Walking through text nodes');
         text = this.extractTextFromRange(range);
         console.log(
-          `🔍 Method 3 result: "${text.substring(0, 50)}${
-            text.length > 50 ? '...' : ''
-          }"`
+          `🔍 Method 3 result: "${text.substring(0, 50)}${text.length > 50 ? '...' : ''}"`
         );
       }
 
@@ -366,9 +354,7 @@ class GoogleDocsAdapter {
         console.log('🔍 Method 4: Searching for Kix elements');
         text = this.extractTextFromKix(range);
         console.log(
-          `🔍 Method 4 result: "${text.substring(0, 50)}${
-            text.length > 50 ? '...' : ''
-          }"`
+          `🔍 Method 4 result: "${text.substring(0, 50)}${text.length > 50 ? '...' : ''}"`
         );
       }
 
@@ -448,13 +434,9 @@ class GoogleDocsAdapter {
 
       if (searchElement && searchElement.querySelectorAll) {
         for (const selector of selectors) {
-          kixElements = Array.from(
-            searchElement.querySelectorAll(selector)
-          );
+          kixElements = Array.from(searchElement.querySelectorAll(selector));
           if (kixElements.length > 0) {
-            console.log(
-              `✓ Found ${kixElements.length} elements with selector: ${selector}`
-            );
+            console.log(`✓ Found ${kixElements.length} elements with selector: ${selector}`);
             break;
           }
         }

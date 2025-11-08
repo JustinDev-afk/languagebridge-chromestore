@@ -18,9 +18,9 @@ describe('ActivationModal', () => {
           }),
           set: jest.fn((items, callback) => {
             if (callback) callback();
-          })
-        }
-      }
+          }),
+        },
+      },
     };
 
     global.chrome = mockChrome as any;
@@ -29,7 +29,7 @@ describe('ActivationModal', () => {
   describe('checkAndShow', () => {
     it('should show modal when no demo password is set', async () => {
       const mockModal = {
-        checkAndShow: jest.fn().mockResolvedValue(true)
+        checkAndShow: jest.fn().mockResolvedValue(true),
       };
 
       const result = await mockModal.checkAndShow();
@@ -39,7 +39,7 @@ describe('ActivationModal', () => {
 
     it('should not show modal when demo password exists', async () => {
       const mockModal = {
-        checkAndShow: jest.fn().mockResolvedValue(false)
+        checkAndShow: jest.fn().mockResolvedValue(false),
       };
 
       const result = await mockModal.checkAndShow();
@@ -53,9 +53,9 @@ describe('ActivationModal', () => {
       const mockModal = {
         isShowing: false,
         modal: document.createElement('div'),
-        show: jest.fn(function(this: any) {
+        show: jest.fn(function (this: any) {
           this.isShowing = true;
-        })
+        }),
       };
 
       mockModal.show();
@@ -68,9 +68,9 @@ describe('ActivationModal', () => {
       const mockModal = {
         isShowing: true,
         modal: document.createElement('div'),
-        hide: jest.fn(function(this: any) {
+        hide: jest.fn(function (this: any) {
           this.isShowing = false;
-        })
+        }),
       };
 
       mockModal.hide();

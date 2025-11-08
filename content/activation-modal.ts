@@ -239,8 +239,8 @@ class ActivationModal {
       const response = await fetch(`${this.API_ENDPOINT}/demo-key`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) {
@@ -265,7 +265,6 @@ class ActivationModal {
         // Reload the page to activate the extension
         window.location.reload();
       }, 3000);
-
     } catch (error) {
       console.error('Error getting demo key:', error);
       this.showError('Failed to activate trial. Please try again or contact support.');
@@ -315,7 +314,6 @@ class ActivationModal {
 
       schoolBtn.disabled = false;
       schoolBtn.textContent = 'Check Eligibility';
-
     } catch (error) {
       console.error('Error checking school email:', error);
       this.showError('Error checking eligibility. Please try again.');

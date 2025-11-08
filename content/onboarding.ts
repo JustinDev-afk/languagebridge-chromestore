@@ -32,7 +32,7 @@ class WelcomeGuide {
     // Tutorial steps with interactive content
     this.steps = [
       {
-        title: "Welcome to LanguageBridge! 🌉",
+        title: 'Welcome to LanguageBridge! 🌉',
         content: `
           <p>Your AI-powered translation assistant for students and educators.</p>
           <p><strong>What LanguageBridge does:</strong></p>
@@ -43,11 +43,11 @@ class WelcomeGuide {
             <li>Pause, resume, and control playback speed</li>
           </ul>
         `,
-        icon: "🌉",
-        buttonText: "Let's Get Started →"
+        icon: '🌉',
+        buttonText: "Let's Get Started →",
       },
       {
-        title: "Quick Translation 📝",
+        title: 'Quick Translation 📝',
         content: `
           <p><strong>On most websites:</strong></p>
           <ol style="text-align: left; margin: 12px 0; padding-left: 20px;">
@@ -60,11 +60,11 @@ class WelcomeGuide {
             💡 <strong>Tip:</strong> The translation appears in a draggable box - click and drag the header to move it!
           </div>
         `,
-        icon: "📝",
-        buttonText: "Next: Google Docs →"
+        icon: '📝',
+        buttonText: 'Next: Google Docs →',
       },
       {
-        title: "Google Docs & PDFs 📄",
+        title: 'Google Docs & PDFs 📄',
         content: `
           <p>For documents where selection doesn't work:</p>
           <ol style="text-align: left; margin: 12px 0; padding-left: 20px;">
@@ -76,11 +76,11 @@ class WelcomeGuide {
             📋 The text input box is in the toolbar - look for "Paste or type text to translate..."
           </div>
         `,
-        icon: "📄",
-        buttonText: "Next: Controls →"
+        icon: '📄',
+        buttonText: 'Next: Controls →',
       },
       {
-        title: "Playback Controls 🎵",
+        title: 'Playback Controls 🎵',
         content: `
           <p><strong>Master the audio controls:</strong></p>
           <ul style="text-align: left; margin: 12px 0; padding-left: 20px;">
@@ -93,11 +93,11 @@ class WelcomeGuide {
             ⚡ Audio plays sentence-by-sentence and blocks new translations until finished!
           </div>
         `,
-        icon: "🎵",
-        buttonText: "Next: Languages →"
+        icon: '🎵',
+        buttonText: 'Next: Languages →',
       },
       {
-        title: "Language Settings 🌍",
+        title: 'Language Settings 🌍',
         content: `
           <p><strong>Choose your target language:</strong></p>
           <ul style="text-align: left; margin: 12px 0; padding-left: 20px;">
@@ -115,8 +115,8 @@ class WelcomeGuide {
             🗣️ Each language uses native AI voices for natural pronunciation
           </div>
         `,
-        icon: "🌍",
-        buttonText: "Almost Done →"
+        icon: '🌍',
+        buttonText: 'Almost Done →',
       },
       {
         title: "You're All Set! 🎉",
@@ -134,9 +134,9 @@ class WelcomeGuide {
             Happy translating! 🌉
           </p>
         `,
-        icon: "🎉",
-        buttonText: "Finish Tutorial ✓"
-      }
+        icon: '🎉',
+        buttonText: 'Finish Tutorial ✓',
+      },
     ];
   }
 
@@ -239,7 +239,9 @@ class WelcomeGuide {
             <span style="font-size: 12px; font-weight: 600; opacity: 0.8;">
               Step ${this.currentStep + 1} of ${this.steps.length}
             </span>
-            ${this.currentStep > 0 ? `
+            ${
+              this.currentStep > 0
+                ? `
               <button id="lb-guide-skip" style="
                 background: rgba(255,255,255,0.15);
                 border: none;
@@ -250,7 +252,9 @@ class WelcomeGuide {
                 cursor: pointer;
                 font-weight: 600;
               ">Skip Tutorial</button>
-            ` : ''}
+            `
+                : ''
+            }
           </div>
           <div style="
             width: 100%;
@@ -298,7 +302,9 @@ class WelcomeGuide {
           gap: 12px;
           margin-top: 32px;
         ">
-          ${this.currentStep > 0 ? `
+          ${
+            this.currentStep > 0
+              ? `
             <button id="lb-guide-back" style="
               flex: 1;
               background: rgba(255, 255, 255, 0.2);
@@ -311,7 +317,9 @@ class WelcomeGuide {
               cursor: pointer;
               transition: all 0.2s;
             ">← Back</button>
-          ` : ''}
+          `
+              : ''
+          }
           <button id="lb-guide-next" style="
             flex: ${this.currentStep > 0 ? '2' : '1'};
             background: white;

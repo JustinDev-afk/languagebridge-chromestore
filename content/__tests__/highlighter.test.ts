@@ -16,7 +16,7 @@ describe('Highlighter', () => {
       highlightSelection: jest.fn(),
       removeAllHighlights: jest.fn(),
       createFocusIndicator: jest.fn(),
-      updateIndicatorPosition: jest.fn()
+      updateIndicatorPosition: jest.fn(),
     };
   });
 

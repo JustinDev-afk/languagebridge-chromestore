@@ -104,7 +104,7 @@ class Highlighter {
     const {
       pulse = false,
       scroll = true,
-      duration = 0 // 0 = permanent until removed
+      duration = 0, // 0 = permanent until removed
     } = options;
 
     // Add highlight class
@@ -122,7 +122,7 @@ class Highlighter {
       element.scrollIntoView({
         behavior: 'smooth',
         block: 'center',
-        inline: 'nearest'
+        inline: 'nearest',
       });
     }
 
@@ -253,7 +253,7 @@ class Highlighter {
   public async highlightSequence(elements: HTMLElement[], interval: number = 1000): Promise<void> {
     for (const element of elements) {
       this.highlightElement(element, { pulse: true, duration: interval });
-      await new Promise(resolve => setTimeout(resolve, interval));
+      await new Promise((resolve) => setTimeout(resolve, interval));
     }
   }
 
@@ -265,9 +265,9 @@ class Highlighter {
   public async flashHighlight(element: HTMLElement, times: number = 3): Promise<void> {
     for (let i = 0; i < times; i++) {
       this.highlightElement(element, { pulse: false, scroll: false });
-      await new Promise(resolve => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       this.removeHighlight();
-      await new Promise(resolve => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 200));
     }
   }
 
@@ -283,18 +283,17 @@ class Highlighter {
       'select',
       'textarea',
       '[tabindex]:not([tabindex="-1"])',
-      '[contenteditable="true"]'
+      '[contenteditable="true"]',
     ];
 
-    return Array.from(document.querySelectorAll(selectors.join(',')))
-      .filter((el: Element) => {
-        const htmlEl = el as HTMLElement;
-        // Filter out invisible elements
-        const style = window.getComputedStyle(htmlEl);
-        return style.display !== 'none' &&
-               style.visibility !== 'hidden' &&
-               htmlEl.offsetParent !== null;
-      }) as HTMLElement[];
+    return Array.from(document.querySelectorAll(selectors.join(','))).filter((el: Element) => {
+      const htmlEl = el as HTMLElement;
+      // Filter out invisible elements
+      const style = window.getComputedStyle(htmlEl);
+      return (
+        style.display !== 'none' && style.visibility !== 'hidden' && htmlEl.offsetParent !== null
+      );
+    }) as HTMLElement[];
   }
 
   /**

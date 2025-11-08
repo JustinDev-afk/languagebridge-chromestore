@@ -92,7 +92,7 @@ class FloatingTranslator {
       'floatingTranslatorEnabled',
       'studentLanguage',
       'teacherLanguage',
-      'floatingPosition'
+      'floatingPosition',
     ]);
 
     if (settings.studentLanguage) this.studentLanguage = settings.studentLanguage;
@@ -112,8 +112,10 @@ class FloatingTranslator {
 
       if (request.action === 'settings-updated' && request.settings) {
         // Update settings from options page
-        if (request.settings.studentLanguage) this.studentLanguage = request.settings.studentLanguage;
-        if (request.settings.teacherLanguage) this.teacherLanguage = request.settings.teacherLanguage;
+        if (request.settings.studentLanguage)
+          this.studentLanguage = request.settings.studentLanguage;
+        if (request.settings.teacherLanguage)
+          this.teacherLanguage = request.settings.teacherLanguage;
         sendResponse({ success: true });
         return true;
       }
@@ -243,9 +245,9 @@ class FloatingTranslator {
 
     // Mode switching
     const modeButtons = this.container.querySelectorAll<HTMLButtonElement>('.lb-mode-btn');
-    modeButtons.forEach(btn => {
+    modeButtons.forEach((btn) => {
       btn.addEventListener('click', (e) => {
-        modeButtons.forEach(b => b.classList.remove('active'));
+        modeButtons.forEach((b) => b.classList.remove('active'));
         btn.classList.add('active');
         this.mode = (btn.dataset.mode as 'student' | 'teacher') || 'student';
         this.updateModeIndicator();
@@ -435,11 +437,13 @@ class FloatingTranslator {
 
         // Provide specific error messages
         if (error && error.toString().toLowerCase().includes('permission')) {
-          errorMsg = window.MESSAGES?.getMessage('errors', 'MICROPHONE_PERMISSION_DENIED', userLang) ||
-                    'Microphone permission denied. Please enable microphone access in settings.';
+          errorMsg =
+            window.MESSAGES?.getMessage('errors', 'MICROPHONE_PERMISSION_DENIED', userLang) ||
+            'Microphone permission denied. Please enable microphone access in settings.';
         } else {
-          errorMsg = window.MESSAGES?.getMessage('errors', 'SPEECH_RECOGNITION_ERROR', userLang) ||
-                    'Speech recognition error. Please try again.';
+          errorMsg =
+            window.MESSAGES?.getMessage('errors', 'SPEECH_RECOGNITION_ERROR', userLang) ||
+            'Speech recognition error. Please try again.';
         }
 
         this.showError(errorMsg);
@@ -447,8 +451,9 @@ class FloatingTranslator {
       };
     } catch (error) {
       const userLang = this.mode === 'student' ? this.studentLanguage : this.teacherLanguage;
-      const errorMsg = window.MESSAGES?.getMessage('errors', 'MICROPHONE_NOT_SUPPORTED', userLang) ||
-                      'Could not start microphone';
+      const errorMsg =
+        window.MESSAGES?.getMessage('errors', 'MICROPHONE_NOT_SUPPORTED', userLang) ||
+        'Could not start microphone';
       this.showError(errorMsg);
       console.error('Microphone error:', error);
     }
@@ -471,7 +476,11 @@ class FloatingTranslator {
   /**
    * Handle speech recognition result and translate
    */
-  private async handleSpeechResult(originalText: string, sourceLang: string, targetLang: string): Promise<void> {
+  private async handleSpeechResult(
+    originalText: string,
+    sourceLang: string,
+    targetLang: string
+  ): Promise<void> {
     // Add to transcript
     this.addToTranscript(originalText, sourceLang, 'original');
 
@@ -503,9 +512,14 @@ class FloatingTranslator {
     const entry = document.createElement('div');
     entry.className = `lb-transcript-entry ${type}`;
 
-    const icon = type === 'original' ?
-      (this.mode === 'student' ? '👨‍🎓' : '👩‍🏫') :
-      (this.mode === 'student' ? '👩‍🏫' : '👨‍🎓');
+    const icon =
+      type === 'original'
+        ? this.mode === 'student'
+          ? '👨‍🎓'
+          : '👩‍🏫'
+        : this.mode === 'student'
+          ? '👩‍🏫'
+          : '👨‍🎓';
 
     const langName = this.getLanguageName(language);
 
@@ -565,11 +579,11 @@ class FloatingTranslator {
    */
   private getLanguageName(code: string): string {
     const names: LanguageNames = {
-      'en': 'English',
-      'fa': 'Dari',
-      'ps': 'Pashto',
-      'ar': 'Arabic',
-      'es': 'Spanish'
+      en: 'English',
+      fa: 'Dari',
+      ps: 'Pashto',
+      ar: 'Arabic',
+      es: 'Spanish',
     };
     return names[code] || code;
   }
@@ -605,7 +619,7 @@ class FloatingTranslator {
   private async saveSettings(): Promise<void> {
     await chrome.storage.sync.set({
       studentLanguage: this.studentLanguage,
-      teacherLanguage: this.teacherLanguage
+      teacherLanguage: this.teacherLanguage,
     });
   }
 
@@ -614,7 +628,7 @@ class FloatingTranslator {
    */
   private async savePosition(): Promise<void> {
     await chrome.storage.sync.set({
-      floatingPosition: this.position
+      floatingPosition: this.position,
     });
   }
 

@@ -13,15 +13,15 @@ interface Settings {
   demoSessionExpiry: string;
 
   // Azure Configuration (optional - for advanced users)
-  speechKey: string;           // Custom Azure Speech key (optional)
-  translatorKey: string;       // Custom Azure Translator key (optional)
+  speechKey: string; // Custom Azure Speech key (optional)
+  translatorKey: string; // Custom Azure Translator key (optional)
   azureRegion: string;
 
   // Demo Mode Toggle
-  demoModeEnabled: boolean;   // Show/hide Azure key inputs
+  demoModeEnabled: boolean; // Show/hide Azure key inputs
 
   // User Preferences
-  defaultLanguage: string;   // Default: Dari
+  defaultLanguage: string; // Default: Dari
   speechRate: number;
   verbosity: string;
 
@@ -103,21 +103,21 @@ const DEFAULT_SETTINGS: Settings = {
   demoSessionExpiry: '',
 
   // Azure Configuration (optional - for advanced users)
-  speechKey: '',           // Custom Azure Speech key (optional)
-  translatorKey: '',       // Custom Azure Translator key (optional)
+  speechKey: '', // Custom Azure Speech key (optional)
+  translatorKey: '', // Custom Azure Translator key (optional)
   azureRegion: 'westus',
 
   // Demo Mode Toggle
-  demoModeEnabled: true,   // Show/hide Azure key inputs
+  demoModeEnabled: true, // Show/hide Azure key inputs
 
   // User Preferences
-  defaultLanguage: 'fa',   // Default: Dari
+  defaultLanguage: 'fa', // Default: Dari
   speechRate: 1.0,
   verbosity: 'balanced',
 
   // Feature Toggles
   toolbarEnabled: true,
-  floatingTranslatorEnabled: true
+  floatingTranslatorEnabled: true,
 };
 
 /**
@@ -129,22 +129,22 @@ const DEMO_PASSWORDS: { [key: string]: DemoPasswordConfig } = {
     expiresAt: '2025-12-31T23:59:59Z',
     usageLimit: 1000,
     tier: 'demo',
-    description: 'Spring 2025 Demo Access'
+    description: 'Spring 2025 Demo Access',
   },
   'TEACHER-TRIAL-2025': {
     enabled: true,
     expiresAt: '2025-12-31T23:59:59Z',
     usageLimit: 500,
     tier: 'demo',
-    description: 'Teacher Trial Access'
+    description: 'Teacher Trial Access',
   },
   'SCHOOL-DEMO-KEY': {
     enabled: true,
     expiresAt: '2025-12-31T23:59:59Z',
     usageLimit: 2000,
     tier: 'demo',
-    description: 'School Demo Access'
-  }
+    description: 'School Demo Access',
+  },
 };
 
 // Load settings when page loads
@@ -181,18 +181,24 @@ async function loadSettings(): Promise<void> {
     }
 
     // Azure Keys (for advanced users)
-    const azureSpeechKeyField = document.getElementById('azureSpeechKey') as HTMLInputElement | null;
+    const azureSpeechKeyField = document.getElementById(
+      'azureSpeechKey'
+    ) as HTMLInputElement | null;
     if (azureSpeechKeyField) {
       azureSpeechKeyField.value = settings.speechKey || '';
     }
 
-    const azureTranslatorKeyField = document.getElementById('azureTranslatorKey') as HTMLInputElement | null;
+    const azureTranslatorKeyField = document.getElementById(
+      'azureTranslatorKey'
+    ) as HTMLInputElement | null;
     if (azureTranslatorKeyField) {
       azureTranslatorKeyField.value = settings.translatorKey || '';
     }
 
     // Language settings
-    const defaultLanguageField = document.getElementById('defaultLanguage') as HTMLSelectElement | null;
+    const defaultLanguageField = document.getElementById(
+      'defaultLanguage'
+    ) as HTMLSelectElement | null;
     if (defaultLanguageField) {
       defaultLanguageField.value = settings.defaultLanguage || 'fa';
     }
@@ -206,18 +212,24 @@ async function loadSettings(): Promise<void> {
     }
 
     // Verbosity radio buttons
-    const verbosityRadio = document.querySelector(`input[name="verbosity"][value="${settings.verbosity || 'balanced'}"]`) as HTMLInputElement | null;
+    const verbosityRadio = document.querySelector(
+      `input[name="verbosity"][value="${settings.verbosity || 'balanced'}"]`
+    ) as HTMLInputElement | null;
     if (verbosityRadio) {
       verbosityRadio.checked = true;
     }
 
     // Checkboxes
-    const toolbarEnabledField = document.getElementById('toolbarEnabled') as HTMLInputElement | null;
+    const toolbarEnabledField = document.getElementById(
+      'toolbarEnabled'
+    ) as HTMLInputElement | null;
     if (toolbarEnabledField) {
       toolbarEnabledField.checked = settings.toolbarEnabled !== false;
     }
 
-    const floatingTranslatorEnabledField = document.getElementById('floatingTranslatorEnabled') as HTMLInputElement | null;
+    const floatingTranslatorEnabledField = document.getElementById(
+      'floatingTranslatorEnabled'
+    ) as HTMLInputElement | null;
     if (floatingTranslatorEnabledField) {
       floatingTranslatorEnabledField.checked = settings.floatingTranslatorEnabled !== false;
     }
@@ -301,10 +313,10 @@ function attachEventListeners(): void {
     'defaultLanguage',
     'speechRate',
     'toolbarEnabled',
-    'floatingTranslatorEnabled'
+    'floatingTranslatorEnabled',
   ];
 
-  autoSaveElements.forEach(id => {
+  autoSaveElements.forEach((id) => {
     const element = document.getElementById(id) as HTMLInputElement | null;
     if (element) {
       element.addEventListener('change', () => {
@@ -321,7 +333,7 @@ function attachEventListeners(): void {
   });
 
   // Verbosity radio buttons
-  document.querySelectorAll<HTMLInputElement>('input[name="verbosity"]').forEach(radio => {
+  document.querySelectorAll<HTMLInputElement>('input[name="verbosity"]').forEach((radio) => {
     radio.addEventListener('change', () => {
       const saveBtn = document.getElementById('saveBtn') as HTMLButtonElement | null;
       if (saveBtn) {
@@ -378,11 +390,19 @@ async function saveSettings(): Promise<void> {
 
     const azureRegionField = document.getElementById('azureRegion') as HTMLSelectElement | null;
     const demoModeCheckbox = document.getElementById('demoModeEnabled') as HTMLInputElement | null;
-    const defaultLanguageField = document.getElementById('defaultLanguage') as HTMLSelectElement | null;
+    const defaultLanguageField = document.getElementById(
+      'defaultLanguage'
+    ) as HTMLSelectElement | null;
     const speechRateField = document.getElementById('speechRate') as HTMLInputElement | null;
-    const verbosityRadio = document.querySelector('input[name="verbosity"]:checked') as HTMLInputElement | null;
-    const toolbarEnabledField = document.getElementById('toolbarEnabled') as HTMLInputElement | null;
-    const floatingTranslatorEnabledField = document.getElementById('floatingTranslatorEnabled') as HTMLInputElement | null;
+    const verbosityRadio = document.querySelector(
+      'input[name="verbosity"]:checked'
+    ) as HTMLInputElement | null;
+    const toolbarEnabledField = document.getElementById(
+      'toolbarEnabled'
+    ) as HTMLInputElement | null;
+    const floatingTranslatorEnabledField = document.getElementById(
+      'floatingTranslatorEnabled'
+    ) as HTMLInputElement | null;
 
     const settings: Partial<Settings> = {
       demoPassword: demoPassword,
@@ -392,12 +412,16 @@ async function saveSettings(): Promise<void> {
       speechRate: parseFloat(speechRateField?.value || '1.0'),
       verbosity: verbosityRadio?.value || 'balanced',
       toolbarEnabled: toolbarEnabledField?.checked || false,
-      floatingTranslatorEnabled: floatingTranslatorEnabledField?.checked || false
+      floatingTranslatorEnabled: floatingTranslatorEnabledField?.checked || false,
     };
 
     // Add optional Azure keys if provided
-    const azureSpeechKeyField = document.getElementById('azureSpeechKey') as HTMLInputElement | null;
-    const azureTranslatorKeyField = document.getElementById('azureTranslatorKey') as HTMLInputElement | null;
+    const azureSpeechKeyField = document.getElementById(
+      'azureSpeechKey'
+    ) as HTMLInputElement | null;
+    const azureTranslatorKeyField = document.getElementById(
+      'azureTranslatorKey'
+    ) as HTMLInputElement | null;
 
     const azureSpeechKey = azureSpeechKeyField?.value.trim() || '';
     const azureTranslatorKey = azureTranslatorKeyField?.value.trim() || '';
@@ -412,7 +436,10 @@ async function saveSettings(): Promise<void> {
     }
 
     // Keep session info from validation
-    const sessionData = (await chrome.storage.sync.get(['demoSessionToken', 'demoSessionExpiry'])) as Partial<Settings>;
+    const sessionData = (await chrome.storage.sync.get([
+      'demoSessionToken',
+      'demoSessionExpiry',
+    ])) as Partial<Settings>;
     if (sessionData.demoSessionToken) {
       settings.demoSessionToken = sessionData.demoSessionToken;
       settings.demoSessionExpiry = sessionData.demoSessionExpiry;
@@ -424,18 +451,20 @@ async function saveSettings(): Promise<void> {
 
     // Notify content scripts of settings change
     const tabs = await chrome.tabs.query({});
-    tabs.forEach(tab => {
+    tabs.forEach((tab) => {
       if (tab.id) {
-        chrome.tabs.sendMessage(tab.id, {
-          action: 'settings-updated',
-          settings: {
-            userLanguage: settings.defaultLanguage,
-            readingSpeed: settings.speechRate,
-            verbosity: settings.verbosity
-          }
-        }).catch(() => {
-          // Ignore errors for tabs that don't have the content script
-        });
+        chrome.tabs
+          .sendMessage(tab.id, {
+            action: 'settings-updated',
+            settings: {
+              userLanguage: settings.defaultLanguage,
+              readingSpeed: settings.speechRate,
+              verbosity: settings.verbosity,
+            },
+          })
+          .catch(() => {
+            // Ignore errors for tabs that don't have the content script
+          });
       }
     });
   } catch (error) {
@@ -478,20 +507,23 @@ async function validateDemoPassword(password: string): Promise<boolean> {
 
     // Check if usage limit exceeded
     if (currentUsage >= demoConfig.usageLimit) {
-      showStatus(`Usage limit reached (${currentUsage}/${demoConfig.usageLimit}). Please contact support for more access.`, 'error');
+      showStatus(
+        `Usage limit reached (${currentUsage}/${demoConfig.usageLimit}). Please contact support for more access.`,
+        'error'
+      );
       return false;
     }
 
     // Store session info locally
     await chrome.storage.sync.set({
       demoPassword: password,
-      demoSessionExpiry: demoConfig.expiresAt
+      demoSessionExpiry: demoConfig.expiresAt,
     });
 
     // Store usage info in local storage
     await chrome.storage.local.set({
       currentUsage: currentUsage,
-      usageLimit: demoConfig.usageLimit
+      usageLimit: demoConfig.usageLimit,
     });
 
     await showSessionInfo({
@@ -499,7 +531,7 @@ async function validateDemoPassword(password: string): Promise<boolean> {
       tier: demoConfig.tier,
       description: demoConfig.description,
       currentUsage: currentUsage,
-      usageLimit: demoConfig.usageLimit
+      usageLimit: demoConfig.usageLimit,
     });
 
     showStatus('Demo access activated! 🎉', 'success');
@@ -548,7 +580,9 @@ async function showSessionInfo(sessionData: SessionData): Promise<void> {
     window.usageUpdateInterval = setInterval(async () => {
       const latest = (await chrome.storage.local.get(['currentUsage', 'usageLimit'])) as UsageData;
       if (latest.currentUsage !== undefined) {
-        const sessionUsageElement = document.getElementById('sessionUsage') as HTMLDivElement | null;
+        const sessionUsageElement = document.getElementById(
+          'sessionUsage'
+        ) as HTMLDivElement | null;
         if (sessionUsageElement) {
           sessionUsageElement.textContent = `Usage: ${latest.currentUsage}/${latest.usageLimit} requests`;
         }
@@ -627,8 +661,8 @@ async function getDemoKey(): Promise<void> {
     const response = await fetch(`${(window as any).API_ENDPOINT}/demo-key`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
 
     if (!response.ok) {
@@ -638,7 +672,9 @@ async function getDemoKey(): Promise<void> {
     const data = (await response.json()) as DemoKeyResponse;
 
     // Save the demo key
-    const subscriptionKeyField = document.getElementById('subscriptionKey') as HTMLInputElement | null;
+    const subscriptionKeyField = document.getElementById(
+      'subscriptionKey'
+    ) as HTMLInputElement | null;
     if (subscriptionKeyField) {
       subscriptionKeyField.value = data.key;
     }
@@ -647,7 +683,10 @@ async function getDemoKey(): Promise<void> {
     // Show subscription status
     await validateAndShowSubscriptionStatus(data.key);
 
-    showStatus(`Demo key activated! Valid for ${data.expiresIn || '7 days'} with ${data.limit || 100} translations.`, 'success');
+    showStatus(
+      `Demo key activated! Valid for ${data.expiresIn || '7 days'} with ${data.limit || 100} translations.`,
+      'success'
+    );
   } catch (error) {
     console.error('Error getting demo key:', error);
     showStatus('Error generating demo key. Please try again later.', 'error');
@@ -666,12 +705,14 @@ async function validateAndShowSubscriptionStatus(key: string): Promise<void> {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-Key': key
-      }
+        'X-API-Key': key,
+      },
     });
 
     if (!response.ok) {
-      const subscriptionStatus = document.getElementById('subscriptionStatus') as HTMLDivElement | null;
+      const subscriptionStatus = document.getElementById(
+        'subscriptionStatus'
+      ) as HTMLDivElement | null;
       if (subscriptionStatus) {
         subscriptionStatus.style.display = 'none';
       }
@@ -726,7 +767,9 @@ async function validateAndShowSubscriptionStatus(key: string): Promise<void> {
     }
   } catch (error) {
     console.error('Error validating subscription:', error);
-    const subscriptionStatus = document.getElementById('subscriptionStatus') as HTMLDivElement | null;
+    const subscriptionStatus = document.getElementById(
+      'subscriptionStatus'
+    ) as HTMLDivElement | null;
     if (subscriptionStatus) {
       subscriptionStatus.style.display = 'none';
     }

@@ -87,12 +87,12 @@ class LanguageBridgeToolbar {
    */
   async init(): Promise<void> {
     // Load user preferences
-    const settings = await chrome.storage.sync.get([
+    const settings = (await chrome.storage.sync.get([
       'toolbarEnabled',
       'defaultLanguage',
       'speechRate',
-      'verbosity'
-    ]) as ToolbarSettings;
+      'verbosity',
+    ])) as ToolbarSettings;
 
     // Map defaultLanguage to userLanguage for internal use
     if (settings.defaultLanguage) this.userLanguage = settings.defaultLanguage;
@@ -104,36 +104,34 @@ class LanguageBridgeToolbar {
     }
 
     // Listen for keyboard shortcut and settings updates
-    chrome.runtime.onMessage.addListener(
-      (request: SelectionSettings, sender, sendResponse) => {
-        if (request.action === 'toggle-toolbar') {
-          this.toggle();
-          sendResponse({ success: true, isActive: this.isActive });
-          return true;
-        }
-
-        if (request.action === 'settings-updated' && request.settings) {
-          console.log('⚙️ Settings updated:', request.settings);
-
-          if (request.settings.userLanguage) {
-            console.log(
-              `🌐 Language changing from ${this.userLanguage} to ${request.settings.userLanguage}`
-            );
-            this.userLanguage = request.settings.userLanguage;
-          }
-          if (request.settings.readingSpeed) this.readingSpeed = request.settings.readingSpeed;
-          if (request.settings.verbosity) this.verbosity = request.settings.verbosity;
-
-          this.updateLanguageDisplay();
-          console.log('✓ Language display updated');
-
-          sendResponse({ success: true });
-          return true;
-        }
-
-        return false;
+    chrome.runtime.onMessage.addListener((request: SelectionSettings, sender, sendResponse) => {
+      if (request.action === 'toggle-toolbar') {
+        this.toggle();
+        sendResponse({ success: true, isActive: this.isActive });
+        return true;
       }
-    );
+
+      if (request.action === 'settings-updated' && request.settings) {
+        console.log('⚙️ Settings updated:', request.settings);
+
+        if (request.settings.userLanguage) {
+          console.log(
+            `🌐 Language changing from ${this.userLanguage} to ${request.settings.userLanguage}`
+          );
+          this.userLanguage = request.settings.userLanguage;
+        }
+        if (request.settings.readingSpeed) this.readingSpeed = request.settings.readingSpeed;
+        if (request.settings.verbosity) this.verbosity = request.settings.verbosity;
+
+        this.updateLanguageDisplay();
+        console.log('✓ Language display updated');
+
+        sendResponse({ success: true });
+        return true;
+      }
+
+      return false;
+    });
 
     // Listen for text selection
     document.addEventListener('mouseup', this.handleTextSelection.bind(this));
@@ -391,7 +389,9 @@ class LanguageBridgeToolbar {
     }
 
     // Language selector
-    const langSelect = this.conversationPanel.querySelector('#lb-conv-lang-select') as HTMLSelectElement;
+    const langSelect = this.conversationPanel.querySelector(
+      '#lb-conv-lang-select'
+    ) as HTMLSelectElement;
     if (langSelect) {
       langSelect.value = this.userLanguage;
       langSelect.addEventListener('change', (e) => {
@@ -405,7 +405,9 @@ class LanguageBridgeToolbar {
     }
 
     // Speed slider
-    const speedSlider = this.conversationPanel.querySelector('#lb-conv-speed-slider') as HTMLInputElement;
+    const speedSlider = this.conversationPanel.querySelector(
+      '#lb-conv-speed-slider'
+    ) as HTMLInputElement;
     const speedDisplay = this.conversationPanel.querySelector('#lb-conv-speed-display');
     if (speedSlider && speedDisplay) {
       speedSlider.value = this.readingSpeed.toString();
@@ -708,7 +710,7 @@ class LanguageBridgeToolbar {
       uz: "O'zbek Uzbek",
       uk: 'Українська Ukrainian',
       es: 'Español',
-      en: 'English'
+      en: 'English',
     };
     return names[this.userLanguage] || 'Unknown';
   }
@@ -916,7 +918,8 @@ class LanguageBridgeToolbar {
     } catch (error) {
       console.error('Teacher speech error:', error);
       if (transcript) {
-        transcript.innerHTML = '<div style="color: #ef4444;">Error: Could not recognize speech</div>';
+        transcript.innerHTML =
+          '<div style="color: #ef4444;">Error: Could not recognize speech</div>';
       }
 
       try {
@@ -1005,7 +1008,8 @@ class LanguageBridgeToolbar {
     } catch (error) {
       console.error('Student speech error:', error);
       if (transcript) {
-        transcript.innerHTML = '<div style="color: #ef4444;">Error: Could not recognize speech</div>';
+        transcript.innerHTML =
+          '<div style="color: #ef4444;">Error: Could not recognize speech</div>';
       }
 
       try {
@@ -1231,7 +1235,7 @@ class LanguageBridgeToolbar {
     return new Promise<void>(async (resolve, reject) => {
       try {
         await window.AzureClient.speakText(sentence, this.userLanguage, {
-          rate: this.readingSpeed
+          rate: this.readingSpeed,
         });
 
         // Check if cancelled during playback
@@ -1682,7 +1686,7 @@ These shortcuts work even in locked test mode!
     await chrome.storage.sync.set({
       userLanguage: this.userLanguage,
       readingSpeed: this.readingSpeed,
-      verbosity: this.verbosity
+      verbosity: this.verbosity,
     });
   }
 

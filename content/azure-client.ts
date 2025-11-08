@@ -78,7 +78,7 @@ class AzureClient {
       demoPassword: null,
 
       // Backend API endpoint
-      apiEndpoint: 'https://languagebridge-api.azurewebsites.net/api'
+      apiEndpoint: 'https://languagebridge-api.azurewebsites.net/api',
     };
 
     this.init();
@@ -95,7 +95,7 @@ class AzureClient {
       'azureRegion',
       'speechKey',
       'translatorKey',
-      'apiEndpoint'
+      'apiEndpoint',
     ]);
 
     if (keys.demoPassword) {
@@ -134,15 +134,15 @@ class AzureClient {
   async startSpeechRecognition(language: string): Promise<RecognitionController> {
     // Map language codes to Azure locale codes
     const localeMap: LocaleMap = {
-      'en': 'en-US',
-      'fa': 'fa-IR', // Dari/Farsi (default)
+      en: 'en-US',
+      fa: 'fa-IR', // Dari/Farsi (default)
       'fa-IR-formal': 'fa-IR', // Persian (maps to fa-IR for speech recognition)
-      'ps': 'ps-AF', // Pashto
-      'ar': 'ar-SA', // Arabic
-      'ur': 'ur-PK', // Urdu
-      'uz': 'uz-UZ', // Uzbek
-      'uk': 'uk-UA', // Ukrainian
-      'es': 'es-ES'  // Spanish
+      ps: 'ps-AF', // Pashto
+      ar: 'ar-SA', // Arabic
+      ur: 'ur-PK', // Urdu
+      uz: 'uz-UZ', // Uzbek
+      uk: 'uk-UA', // Ukrainian
+      es: 'es-ES', // Spanish
     };
 
     // Validate language code
@@ -184,7 +184,7 @@ class AzureClient {
     return new Promise<RecognitionController>((resolve, reject) => {
       const controller: RecognitionController = {
         onResult: null,
-        onError: null
+        onError: null,
       };
 
       this.recognizer.recognizing = (s: any, e: any) => {
@@ -228,7 +228,7 @@ class AzureClient {
 
     const controller: RecognitionController = {
       onResult: null,
-      onError: null
+      onError: null,
     };
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {
@@ -312,13 +312,13 @@ class AzureClient {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-API-Key': apiKey
+          'X-API-Key': apiKey,
         },
         body: JSON.stringify({
           text: text,
           from: fromLang,
-          to: toLang
-        })
+          to: toLang,
+        }),
       });
 
       if (!response.ok) {
@@ -327,10 +327,14 @@ class AzureClient {
 
         // Handle specific error cases
         if (response.status === 403) {
-          this.showSubscriptionError('Your session has expired. Please re-enter your demo password.');
+          this.showSubscriptionError(
+            'Your session has expired. Please re-enter your demo password.'
+          );
           throw new Error('Session expired');
         } else if (response.status === 429) {
-          this.showSubscriptionError(`Usage limit exceeded. You've reached your translation limit.`);
+          this.showSubscriptionError(
+            `Usage limit exceeded. You've reached your translation limit.`
+          );
           throw new Error('Usage limit exceeded');
         } else if (response.status === 401) {
           this.showSubscriptionError('Invalid demo password. Please check your settings.');
@@ -360,7 +364,7 @@ class AzureClient {
         await chrome.storage.local.set({
           currentUsage: data.usage.used,
           usageLimit: data.usage.limit,
-          lastUpdated: new Date().toISOString()
+          lastUpdated: new Date().toISOString(),
         });
       }
 
@@ -396,9 +400,9 @@ class AzureClient {
         method: 'POST',
         headers: {
           'Ocp-Apim-Subscription-Key': this.config.translatorKey || '',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify([{ text: text }])
+        body: JSON.stringify([{ text: text }]),
       });
 
       if (!response.ok) {
@@ -493,15 +497,15 @@ class AzureClient {
 
         // Map language codes to Azure voices
         const voiceMap: VoiceMap = {
-          'fa': 'fa-IR-DilaraNeural',           // Dari/Farsi female (natural, conversational)
-          'fa-IR-formal': 'fa-IR-FaridNeural',  // Persian female (formal, clearer)
-          'ps': 'ps-AF-LatifaNeural',           // Pashto female
-          'ar': 'ar-SA-ZariyahNeural',          // Arabic female
-          'ur': 'ur-PK-UzmaNeural',             // Urdu female
-          'uk': 'uk-UA-PolinaNeural',           // Ukrainian female
-          'uz': 'uz-UZ-MadinaNeural',           // Uzbek female
-          'es': 'es-US-PalomaNeural',           // Spanish female
-          'en': 'en-US-JennyNeural'             // English female
+          fa: 'fa-IR-DilaraNeural', // Dari/Farsi female (natural, conversational)
+          'fa-IR-formal': 'fa-IR-FaridNeural', // Persian female (formal, clearer)
+          ps: 'ps-AF-LatifaNeural', // Pashto female
+          ar: 'ar-SA-ZariyahNeural', // Arabic female
+          ur: 'ur-PK-UzmaNeural', // Urdu female
+          uk: 'uk-UA-PolinaNeural', // Ukrainian female
+          uz: 'uz-UZ-MadinaNeural', // Uzbek female
+          es: 'es-US-PalomaNeural', // Spanish female
+          en: 'en-US-JennyNeural', // English female
         };
 
         speechConfig.speechSynthesisVoiceName = voiceMap[language] || 'en-US-JennyNeural';
@@ -524,7 +528,9 @@ class AzureClient {
             if (result.reason === SDK.ResultReason.SynthesizingAudioCompleted) {
               // Get actual audio duration from the result
               const audioDuration = result.audioDuration / 10000; // Convert from ticks to milliseconds
-              console.log(`✓ Azure speech synthesis completed. Audio duration: ${Math.round(audioDuration)}ms`);
+              console.log(
+                `✓ Azure speech synthesis completed. Audio duration: ${Math.round(audioDuration)}ms`
+              );
 
               // Wait for actual playback to finish before resolving
               this.playbackTimeout = setTimeout(() => {
@@ -630,7 +636,7 @@ class AzureClient {
     // Dispatch custom event that can be caught by toolbar or other UI elements
     window.dispatchEvent(
       new CustomEvent('languagebridge-subscription-error', {
-        detail: { message }
+        detail: { message },
       })
     );
   }
@@ -650,7 +656,7 @@ class AzureClient {
       // Update usage counter
       await chrome.storage.local.set({
         [usageKey]: currentUsage,
-        currentUsage: currentUsage  // Also store globally for display
+        currentUsage: currentUsage, // Also store globally for display
       });
 
       console.log(`✓ Usage tracked: ${currentUsage}/${usageLimit} requests`);
@@ -669,11 +675,7 @@ class AzureClient {
   /**
    * Fallback browser speech synthesis
    */
-  private fallbackSpeak(
-    text: string,
-    language: string,
-    options: VoiceOptions = {}
-  ): Promise<void> {
+  private fallbackSpeak(text: string, language: string, options: VoiceOptions = {}): Promise<void> {
     if (!('speechSynthesis' in window)) {
       console.warn('Speech synthesis not supported');
       return Promise.resolve();
@@ -684,13 +686,13 @@ class AzureClient {
 
       // Map to BCP 47 language tags
       const langMap: LanguageMap = {
-        'en': 'en-US',
-        'fa': 'fa-IR',
+        en: 'en-US',
+        fa: 'fa-IR',
         'fa-IR-formal': 'fa-IR',
-        'ps': 'ps-AF',
-        'ar': 'ar-SA',
-        'ur': 'ur-PK',
-        'es': 'es-ES'
+        ps: 'ps-AF',
+        ar: 'ar-SA',
+        ur: 'ur-PK',
+        es: 'es-ES',
       };
 
       utterance.lang = langMap[language] || 'en-US';
