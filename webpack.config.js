@@ -5,6 +5,11 @@ module.exports = {
   mode: process.env.NODE_ENV || 'development',
 
   entry: {
+    // System Scripts (load first)
+    'content/toast-system': './content/toast-system.ts',
+    'content/feedback-system': './content/feedback-system.ts',
+    'content/translation-feedback-ui': './content/translation-feedback-ui.ts',
+
     // Content Scripts
     'content/toolbar': './content/toolbar.ts',
     'content/activation-modal': './content/activation-modal.ts',
@@ -53,7 +58,7 @@ module.exports = {
             },
           },
         ],
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /_tests_/, /\.test\.ts$/, /\.spec\.ts$/],
       },
 
       // Babel Loader for JavaScript
