@@ -170,11 +170,7 @@ class ToastManager {
       this.createContainer();
     }
 
-    const {
-      duration = 3000,
-      type = 'info',
-      action = undefined,
-    } = options;
+    const { duration = 3000, type = 'info', action = undefined } = options;
 
     const toastId = `toast-${++this.toastCounter}`;
     const toast = document.createElement('div');
