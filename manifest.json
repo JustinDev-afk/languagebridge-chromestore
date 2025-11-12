@@ -26,10 +26,11 @@
       {
         "matches": ["<all_urls>"],
         "js": [
-          "content/azure-speech-sdk-bundle.js",
           "config/messages.js",
           "config/features.js",
-          "content/azure-client.js",
+          "content/toast-system.js",
+          "content/feedback-system.js",
+          "content/translation-feedback-ui.js",
           "content/activation-modal.js",
           "content/google-docs-adapter.js",
           "content/onboarding.js",
@@ -88,7 +89,6 @@
           "assets/*",
           "content/*.css",
           "content/*.html",
-          "content/azure-speech-sdk-bundle.js",
           "docs/*.html"
         ],
         "matches": ["<all_urls>"]
