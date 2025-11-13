@@ -90,6 +90,8 @@
           "assets/*",
           "content/*.css",
           "content/*.html",
+          "options/options.html",
+          "popup/popup.html",
           "docs/*.html"
         ],
         "matches": ["<all_urls>"]
