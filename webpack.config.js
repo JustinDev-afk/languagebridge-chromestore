@@ -5,7 +5,8 @@ module.exports = {
   mode: process.env.NODE_ENV || 'development',
 
   entry: {
-    // System Scripts (load first)
+    // Core Dependencies (load first)
+    'content/azure-client': './content/azure-client.ts',
     'content/toast-system': './content/toast-system.ts',
     'content/feedback-system': './content/feedback-system.ts',
     'content/translation-feedback-ui': './content/translation-feedback-ui.ts',

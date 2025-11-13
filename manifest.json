@@ -28,6 +28,7 @@
         "js": [
           "config/messages.js",
           "config/features.js",
+          "content/azure-client.js",
           "content/toast-system.js",
           "content/feedback-system.js",
           "content/translation-feedback-ui.js",
