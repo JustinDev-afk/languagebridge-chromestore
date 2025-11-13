@@ -49,14 +49,14 @@ class TranslationFeedbackUI {
     const thumbsUpBtn = document.createElement('button');
     thumbsUpBtn.className = 'lb-feedback-btn lb-feedback-up';
     thumbsUpBtn.title = 'Good translation';
-    thumbsUpBtn.innerHTML = '👍';
+    thumbsUpBtn.textContent = '👍';
     thumbsUpBtn.addEventListener('click', () => this.submitFeedback('positive'));
 
     // Create thumbs down button
     const thumbsDownBtn = document.createElement('button');
     thumbsDownBtn.className = 'lb-feedback-btn lb-feedback-down';
     thumbsDownBtn.title = 'Poor translation';
-    thumbsDownBtn.innerHTML = '👎';
+    thumbsDownBtn.textContent = '👎';
     thumbsDownBtn.addEventListener('click', () => this.submitFeedback('negative'));
 
     // Create label

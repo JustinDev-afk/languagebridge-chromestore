@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  roots: ['<rootDir>/content', '<rootDir>/popup', '<rootDir>/options', '<rootDir>/__tests__'],
+  roots: ['<rootDir>/content', '<rootDir>/popup', '<rootDir>/options'],
   testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   transform: {
